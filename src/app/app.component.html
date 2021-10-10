@@ -23,10 +23,13 @@
       </div>
 
       <mat-form-field appearance="fill" class="form-field">
-        <mat-label>Textarea</mat-label>
-        <textarea matInput></textarea>
+        <mat-label>Results Here</mat-label>
+        <textarea  [(ngModel)]="globalResult"  matInput></textarea>
+        <button (click)="clearResultText()"  *ngIf="globalResult" aria-label="Clear" mat-icon-button matSuffix>
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
-      <button color="primary" mat-flat-button style="width: 100%">Copy to clipboard</button>
+      <button color="primary" mat-flat-button style="width: 100%" (click)="copyResultToClipboard()">Copy to clipboard</button>
     </mat-card-content>
   </mat-card>
   <mat-card class="default-list"  [hidden]="onResults">
@@ -46,7 +49,7 @@
                 {{temp.character}}</span>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <span *ngFor="let temp   of category[1]" class="single-emoji" color="primary" mat-button>
+          <span  class="main-emoji"  (click)="addToClipboard( temp.character)" *ngFor="let temp   of category[1]"   color="primary" mat-button>
             {{temp.character}}</span>
         </mat-expansion-panel>
       </mat-accordion>
@@ -70,7 +73,7 @@
                 {{temp.character}}</span>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <span *ngFor="let temp   of category[1]" class="single-emoji" color="primary" mat-button>
+          <span *ngFor="let temp   of category[1]"  (click)="addToClipboard( temp.character)" class="main-emoji"  color="primary" mat-button>
             {{temp.character}}</span>
         </mat-expansion-panel>
       </mat-accordion>

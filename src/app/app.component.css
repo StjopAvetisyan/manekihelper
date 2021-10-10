@@ -1,19 +1,41 @@
 .main {
   width: 80%;
   margin: 0 auto;
+  font-family: EmojiOneColor, serif;
 }
 
+@font-face {
+  font-family: "EmojiOneColor";
+  src: url('../assets/EmojiOneColor.otf') format("opentype");
+}
 
 .search-panel {
   margin-bottom: 20px;
 }
 
+.main-emoji {
+  margin: 5px;
+  font-size: 20px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px #3f51b5 solid;
+  border-radius: 20%;
+  cursor: pointer;
+  background: #3f51b5;
+}
+
+.main-emoji:hover {
+ background: white;
+}
+
 .form-field {
   width: 100%;
 }
+
 [hidden] {
   display: none !important;
 }
+
 .search-button {
   width: 20%;
   height: 57%;

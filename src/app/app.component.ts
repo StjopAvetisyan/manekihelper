@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {ApiService} from './api.service';
+import {Clipboard} from '@angular/cdk/clipboard';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -14,12 +16,30 @@ export class AppComponent {
   categoryNames: any;
   searchValue: any;
   results: any;
+  globalResult = '';
   err: any;
   onResults = false;
   noResult = false;
 
-  constructor(private apiService: ApiService) {
+
+  constructor(private apiService: ApiService, private clipboard: Clipboard, private _snackBar: MatSnackBar) {
     this.getList();
+  }
+
+  copyResultToClipboard(): void {
+    this.clipboard.copy(this.globalResult);
+    this._snackBar.open(this.globalResult + ' copied ');
+  }
+
+  addToClipboard(text): void {
+
+    this.clipboard.copy(text);
+    this._snackBar.open(text + ' copied ');
+    this.globalResult += text;
+  }
+
+  clearResultText(): void {
+    this.globalResult = '';
   }
 
   async getList(): Promise<void> {
@@ -32,12 +52,11 @@ export class AppComponent {
         category[0] = category[0].replace(/-/g, ' ').toUpperCase();
         category[2] = category[1].slice(0, 10);
       }
-    }catch (e){
+    } catch (e) {
       debugger
 
-      this.err = e.message
+      this.err = e.message;
     }
-
 
 
   }
@@ -53,13 +72,13 @@ export class AppComponent {
         }
         this.noResult = false;
       } else {
-        this.results = []
+        this.results = [];
         this.noResult = true;
       }
 
       this.onResults = true;
     } catch (e) {
-      this.err = e.message
+      this.err = e.message;
     }
 
   }
