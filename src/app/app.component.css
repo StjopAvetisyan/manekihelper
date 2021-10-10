@@ -1,0 +1,21 @@
+.main {
+  width: 80%;
+  margin: 0 auto;
+}
+
+
+.search-panel {
+  margin-bottom: 20px;
+}
+
+.form-field {
+  width: 100%;
+}
+[hidden] {
+  display: none !important;
+}
+.search-button {
+  width: 20%;
+  height: 57%;
+  margin-left: 5%
+}

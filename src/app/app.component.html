@@ -1,0 +1,80 @@
+<mat-toolbar>
+  <span>Emogis</span>
+</mat-toolbar>
+<br>
+<div class="main">
+  {{err}}
+  <mat-card class="search-panel">
+    <mat-card-header>
+    </mat-card-header>
+    <mat-card-content>
+      <div style="height: 90px;  display: flex;">
+        <mat-form-field appearance="fill" style="width: 70%;height: 100%">
+          <mat-label>Search</mat-label>
+          <input [(ngModel)]="searchValue"   (change)="getResults(searchValue)" matInput type="text">
+          <button (click)="resetSearch()"  *ngIf="searchValue" aria-label="Clear" mat-icon-button matSuffix>
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <button aria-label="" color="primary" (click)="getResults(searchValue)" mat-flat-button class="search-button">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Textarea</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+      <button color="primary" mat-flat-button style="width: 100%">Copy to clipboard</button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="default-list"  [hidden]="onResults">
+    <mat-card-header>
+      <mat-card-title>Emojis</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let category  of categories;">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{category[0]}}
+            </mat-panel-title>
+            <mat-panel-description>
+              <span *ngFor="let temp   of category[2]" class="single-emoji" color="primary" mat-button>
+                {{temp.character}}</span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <span *ngFor="let temp   of category[1]" class="single-emoji" color="primary" mat-button>
+            {{temp.character}}</span>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="result-list" [hidden]="onResults==false">
+    <mat-card-header>
+      <mat-card-title>Search Results</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <span [hidden]="!noResult">NO RESULTS</span>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let category  of results;">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{category[0]}}
+            </mat-panel-title>
+            <mat-panel-description>
+              <span *ngFor="let temp   of category[2]" class="single-emoji"    >
+                {{temp.character}}</span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <span *ngFor="let temp   of category[1]" class="single-emoji" color="primary" mat-button>
+            {{temp.character}}</span>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+</div>
+<router-outlet></router-outlet>
